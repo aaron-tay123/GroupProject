@@ -1,28 +1,26 @@
 package Project;
 
-import java.awt.Color;
 import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.border.MatteBorder;
+import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-public class HAdminAuthenticHomestay extends JFrame {
+public class HAuthenticHomestay extends JFrame {
+
 	private JPanel contentPane;
-	private JTextField textField_PRICE;
-	public static JTable table;
+	JTextField textField_price;
 
 	/**
 	 * Launch the application.
@@ -31,8 +29,8 @@ public class HAdminAuthenticHomestay extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HAdminAuthenticHomestay AA = new HAdminAuthenticHomestay();
-					AA.setVisible(true);
+					HAuthenticHomestay AH = new HAuthenticHomestay();
+					AH.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,10 +41,10 @@ public class HAdminAuthenticHomestay extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public HAdminAuthenticHomestay() {
+	public HAuthenticHomestay() {
 		setTitle("Authentic Homestay");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 844, 800);
+		setBounds(100, 100, 844, 763);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -55,7 +53,7 @@ public class HAdminAuthenticHomestay extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new MatteBorder(4, 4, 4, 4, (Color) new Color(0, 0, 0)));
 		panel.setBackground(Color.CYAN);
-		panel.setBounds(0, 0, 830, 763);
+		panel.setBounds(0, 0, 830, 726);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -73,7 +71,7 @@ public class HAdminAuthenticHomestay extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new MatteBorder(5, 5, 5, 5, (Color) new Color(0, 0, 0)));
 		panel_1.setBackground(new Color(0, 255, 255));
-		panel_1.setBounds(43, 379, 688, 313);
+		panel_1.setBounds(43, 379, 688, 335);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
@@ -84,7 +82,7 @@ public class HAdminAuthenticHomestay extends JFrame {
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(0, 0, 0));
-		panel_2.setBounds(463, 10, 4, 293);
+		panel_2.setBounds(463, 10, 3, 315);
 		panel_1.add(panel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Does the homestay prepare meals");
@@ -132,85 +130,36 @@ public class HAdminAuthenticHomestay extends JFrame {
 		lblNewLabel_3_1_3.setBounds(532, 216, 80, 43);
 		panel_1.add(lblNewLabel_3_1_3);
 		
-		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("Price per day (RM)");
-		lblNewLabel_2_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel_2_1_1_1_1.setBounds(22, 260, 431, 43);
-		panel_1.add(lblNewLabel_2_1_1_1_1);
+		textField_price = new JTextField();
+		textField_price.setEditable(false);
+		JTable t = HAdminAuthenticHomestay.getTable();
+		String price = "";
+		for(int i = 0; i<t.getRowCount(); i++) {
+			price = String.valueOf(t.getValueAt(i, 0));
+		}
+		textField_price.setText(price);
+		textField_price.setBackground(Color.CYAN);
+		textField_price.setFont(new Font("Tahoma", Font.BOLD, 20));
+		textField_price.setBounds(525, 275, 96, 37);
+		panel_1.add(textField_price);
+		textField_price.setColumns(10);
 		
-		textField_PRICE = new JTextField();
-		textField_PRICE.setFont(new Font("Tahoma", Font.BOLD, 20));
-		textField_PRICE.setBounds(525, 260, 96, 43);
-		panel_1.add(textField_PRICE);
-		textField_PRICE.setColumns(10);
+		JLabel lblNewLabel_2_1_1_1_1 = new JLabel("Price per day");
+		lblNewLabel_2_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_2_1_1_1_1.setBounds(22, 269, 431, 43);
+		panel_1.add(lblNewLabel_2_1_1_1_1);
 		
 		JButton btnBack = new JButton("BACK");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		      HHome H = new HHome();
-		      H.setModalExclusionType(null);
-              H.setVisible(true);
+		      HCustomer C = new HCustomer();
+		      C.setModalExclusionType(null);
+              C.setVisible(true);
               dispose();
 			}
 		});
 		btnBack.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnBack.setBounds(706, 10, 114, 43);
 		panel.add(btnBack);
-		
-		JButton btnConfirm = new JButton("CONFIRM");
-		btnConfirm.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String p = textField_PRICE.getText();
-				
-				if(p.equals(""))
-					JOptionPane.showMessageDialog(null, "Price is empty\nPlease fill it!!");
-				
-				else {
-					
-					JOptionPane.showMessageDialog(null, "Price is confirmed");
-					DefaultTableModel model = (DefaultTableModel) table.getModel();
-					model.addRow(new Object[]{
-							textField_PRICE.getText(),
-									
-				});
-				
-				if (table.getSelectedRow() == -1) {
-					if (table.getRowCount() == 0) {
-						JOptionPane.showMessageDialog(null, "Price confirmed", "Authentic Homestay",
-								JOptionPane.OK_OPTION);
-					}
-				}
-			}
-			}
-			});
-		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnConfirm.setBounds(541, 702, 143, 43);
-		panel.add(btnConfirm);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(680, 269, 1, -3);
-		panel.add(scrollPane);
-		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Price"
-			}
-		));
-		scrollPane.setViewportView(table);
-	}
-	
-	public static void AddRowToJtable(Object[] dataRow) {
-		DefaultTableModel model = (DefaultTableModel)getTable().getModel();
-		model.addRow(dataRow);
-	}
-
-	public static JTable getTable() {
-		return table;
-	}
-
-	public static void setTable(JTable table) {
-		HAdminAuthenticHomestay.table = table;
 	}
 }
